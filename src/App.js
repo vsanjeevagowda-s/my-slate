@@ -22,6 +22,7 @@ const initialValue = Value.fromJSON({
 })
 
 function MarkHotkey(options) {
+  debugger
   const { type, key } = options
 
   // Return our "plugin" object, containing the `onKeyDown` handler.
