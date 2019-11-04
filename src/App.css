@@ -6,4 +6,21 @@
 .code-block{
   background-color: black;
   color: white;
+  cursor: pointer;
+}
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.fa-heading1:after{
+  content: 'H1';
+}
+
+.fa-heading2:after{
+  content: 'H2';
+}
+
+.active{
+  background-color: black;
 }
