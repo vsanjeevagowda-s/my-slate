@@ -4,7 +4,7 @@ import { Editor } from 'slate-react';
 import initialValue from './value.json'
 import { Value } from 'slate';
 import { isKeyHotkey } from 'is-hotkey';
-import { Button } from 'reactstrap';
+import { Row, Col, Button, Input } from 'reactstrap';
 
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
@@ -13,13 +13,20 @@ const isCodeHotkey = isKeyHotkey('mod+`');
 const DEFAULT_NODE = 'paragraph';
 
 class EditorWrapper extends Component {
-
-  state = {
-    value: Value.fromJSON(initialValue),
+  constructor(props){
+    super(props);
+    const savedData = JSON.parse(localStorage.getItem('content'));
+    this.state = {
+      value: Value.fromJSON(savedData) || Value.fromJSON(initialValue),
+    }
   }
 
   onChange = ({ value }) => {
-    this.setState({ value })
+    const { onEditorChange } = this.props;
+    const content = JSON.stringify(value.toJSON());
+    this.setState({ value });
+    console.log({ content });
+    onEditorChange && onEditorChange({content});
   };
 
   onKeyDown = (event, editor, next) => {
@@ -125,7 +132,7 @@ class EditorWrapper extends Component {
         outline color='secondary'
         onMouseDown={event => this.onClickBlock(event, type)}
       >
-        <i className={className}/>
+        <i className={className} />
       </Button>
     )
   };
@@ -185,30 +192,42 @@ class EditorWrapper extends Component {
   }
 
   render() {
+    const { type } = this.props;
     return (
-      <div className='editor-div p-2'>
-        <div className='border-bottom'>
-          {this.renderMarkButton('bold', 'fa fa-bold')}
-          {this.renderMarkButton('italic', 'fa fa-italic')}
-          {this.renderMarkButton('underlined', 'fa fa-underline')}
-          {this.renderMarkButton('code', 'fa fa-code')}
-          {this.renderBlockButton('heading-one', 'fa fa-heading1')}
-          {this.renderBlockButton('heading-two', 'fa fa-heading2')}
-          {this.renderBlockButton('numbered-list', 'fa fa-list-ol')}
-          {this.renderBlockButton('bulleted-list', 'format_list_bulleted')}
-        </div>
-        <Editor
-          spellCheck
-          autoFocus
-          placeholder="Enter some rich text..."
-          ref={this.ref}
-          value={this.state.value}
-          onChange={this.onChange}
-          onKeyDown={this.onKeyDown}
-          renderBlock={this.renderBlock}
-          renderMark={this.renderMark}
-        />
-      </div>
+      <Row className='p-2'>
+        <Col xs={12} sm={12} md={12}>
+          <Row className='border-bottom pb-2'>
+            <Col>
+              {this.renderMarkButton('bold', 'fa fa-bold')}
+              {this.renderMarkButton('italic', 'fa fa-italic')}
+              {this.renderMarkButton('underlined', 'fa fa-underline')}
+              {this.renderMarkButton('code', 'fa fa-code')}
+              {this.renderBlockButton('heading-one', 'fa fa-heading1')}
+              {this.renderBlockButton('heading-two', 'fa fa-heading2')}
+              {this.renderBlockButton('numbered-list', 'fa fa-list-ol')}
+            </Col>
+            {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
+              <Input type='date' />
+            </Col>}
+            {(type === 'todo') && <Col xs={12} sm={12} md={12}>
+              <Input type='date' />
+            </Col>}
+          </Row>
+        </Col>
+        <Col>
+          <Editor
+            spellCheck
+            autoFocus
+            placeholder="Enter some rich text..."
+            ref={this.ref}
+            value={this.state.value}
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
+            renderBlock={this.renderBlock}
+            renderMark={this.renderMark}
+          />
+        </Col>
+      </Row>
     )
   };
 
