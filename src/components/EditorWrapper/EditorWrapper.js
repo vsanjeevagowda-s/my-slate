@@ -15,9 +15,8 @@ const DEFAULT_NODE = 'paragraph';
 class EditorWrapper extends Component {
   constructor(props){
     super(props);
-    const savedData = JSON.parse(localStorage.getItem('content'));
     this.state = {
-      value: Value.fromJSON(savedData) || Value.fromJSON(initialValue),
+      value: Value.fromJSON(initialValue),
     }
   }
 
