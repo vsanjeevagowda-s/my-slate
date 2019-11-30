@@ -9,13 +9,14 @@ class ToDoWrapper extends Component {
   }
 
   onEditorChange(){
-    console.log('sss')
   }
 
   render() {
     return (
       <div>
-        <EditorWrapper type='todo' onEditorChange={this.onEditorChange}/>
+        {/* <EditorWrapper type='todo' onEditorChange={this.onEditorChange} onDateChange={this.onDateChange}
+        date={date}
+        value={value}/> */}
       </div>
     )
   }

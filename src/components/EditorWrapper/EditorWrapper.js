@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Editor } from 'slate-react';
-import initialValue from './value.json'
-import { Value } from 'slate';
 import { isKeyHotkey } from 'is-hotkey';
 import { Row, Col, Button, Input } from 'reactstrap';
 
@@ -15,17 +13,18 @@ const DEFAULT_NODE = 'paragraph';
 class EditorWrapper extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      value: Value.fromJSON(initialValue),
-    }
+    this.onDateChange = this.onDateChange.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onDateChange = ({ date }) => {
+    const { onDateChange } = this.props;
+    onDateChange(date)
   }
 
   onChange = ({ value }) => {
     const { onEditorChange } = this.props;
-    const content = JSON.stringify(value.toJSON());
-    this.setState({ value });
-    console.log({ content });
-    onEditorChange && onEditorChange({content});
+    onEditorChange && onEditorChange({value});
   };
 
   onKeyDown = (event, editor, next) => {
@@ -52,7 +51,7 @@ class EditorWrapper extends Component {
   };
 
   hasMark = type => {
-    const { value } = this.state
+    const { value } = this.props
     return value.activeMarks.some(mark => mark.type === type)
   }
 
@@ -115,7 +114,7 @@ class EditorWrapper extends Component {
     let isActive = this.hasBlock(type)
 
     if (['numbered-list', 'bulleted-list'].includes(type)) {
-      const { value: { document, blocks } } = this.state
+      const { value: { document, blocks } } = this.props
 
       if (blocks.size > 0) {
         const parent = document.getParent(blocks.first().key)
@@ -142,7 +141,7 @@ class EditorWrapper extends Component {
   }
 
   hasBlock = type => {
-    const { value } = this.state
+    const { value } = this.props
     return value.blocks.some(node => node.type === type)
   }
 
@@ -191,7 +190,7 @@ class EditorWrapper extends Component {
   }
 
   render() {
-    const { type } = this.props;
+    const { type, value, date } = this.props;
     return (
       <Row className='p-2'>
         <Col xs={12} sm={12} md={12}>
@@ -206,10 +205,10 @@ class EditorWrapper extends Component {
               {this.renderBlockButton('numbered-list', 'fa fa-list-ol')}
             </Col>
             {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
-              <Input type='date' />
+              <Input type='date' value={date} onChange={(e) => this.onDateChange(e)} />
             </Col>}
             {(type === 'todo') && <Col xs={12} sm={12} md={12}>
-              <Input type='date' />
+              <Input type='date' value={date} onChange={(e) => this.onDateChange(e)} />
             </Col>}
           </Row>
         </Col>
@@ -219,7 +218,7 @@ class EditorWrapper extends Component {
             autoFocus
             placeholder="Enter some rich text..."
             ref={this.ref}
-            value={this.state.value}
+            value={value}
             onChange={this.onChange}
             onKeyDown={this.onKeyDown}
             renderBlock={this.renderBlock}

@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as workspaceActions from '../../actions/workspace.actions';
 
-console.log({workspaceActions});
-
 class WorkspaceHeader extends Component {
   render() {
     return (
@@ -17,28 +15,43 @@ class WorkspaceHeader extends Component {
 }
 
 class WorkspaceWrapper extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.onEditorChange = this.onEditorChange.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
   }
 
-  onEditorChange({ content }){
-      const { syncWorkspaceContent } = this.props;
-      syncWorkspaceContent(content)
+  onDateChange = ({ date }) => {
+    const { onDateChange } = this.props;
+    onDateChange(date)
+  }
+
+  onEditorChange({ value }) {
+    const { date, workspaceContentChange } = this.props;
+    workspaceContentChange({
+      value,
+      date,
+    })
   }
 
   render() {
+    const { date, value } = this.props;
     return (
       <div>
         <WorkspaceHeader />
-        <EditorWrapper type='workspace' onEditorChange={this.onEditorChange}  />
+        <EditorWrapper
+          type='workspace'
+          onEditorChange={this.onEditorChange} onDateChange={this.onDateChange}
+          date={date}
+          value={value} />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-return { state };
+  const { date, value } = state.workspace;
+  return { date, value };
 };
 
 const mapDispatchToProps = dispatch => {
