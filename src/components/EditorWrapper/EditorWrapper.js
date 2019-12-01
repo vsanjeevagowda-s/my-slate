@@ -17,9 +17,9 @@ class EditorWrapper extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  onDateChange = ({ date }) => {
+  onDateChange = ({date}) => {
     const { onDateChange } = this.props;
-    onDateChange(date)
+    onDateChange({date})
   }
 
   onChange = ({ value }) => {
@@ -205,10 +205,10 @@ class EditorWrapper extends Component {
               {this.renderBlockButton('numbered-list', 'fa fa-list-ol')}
             </Col>
             {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
-              <Input type='date' value={date} onChange={(e) => this.onDateChange(e)} />
+              <Input type='date' name='date' value={date} onChange={(e) => this.onDateChange({date: e.target.value})}/>
             </Col>}
             {(type === 'todo') && <Col xs={12} sm={12} md={12}>
-              <Input type='date' value={date} onChange={(e) => this.onDateChange(e)} />
+            <Input type='date' name='date' value={date} onChange={(e) => this.onDateChange({date: e.target.value})} />
             </Col>}
           </Row>
         </Col>
