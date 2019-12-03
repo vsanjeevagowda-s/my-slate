@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {
+  Container,
+  Row,
+  Col,
+} from 'reactstrap';
+import WorkspaceWrapper from './components/WorkspaceWrapper';
+import ToDoWrapper from './components/ToDoWrapper';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
+class App extends Component {
+  render() {
+    return (
+      <Container fluid>
+        <Row>
+          <Col className='border-right' sm={8} md={8} xs={12}>
+            <WorkspaceWrapper />
+          </Col>
+          <Col>
+            <ToDoWrapper />
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
+};
 export default App;
