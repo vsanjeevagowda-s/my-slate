@@ -61,7 +61,7 @@ class WorkspaceWrapper extends Component {
     const { date, value, workspaceDisplayFlag } = this.props;
     return (
       <div>
-        {/* <WorkspaceHeader /> */}
+        <WorkspaceHeader />
         {workspaceDisplayFlag && <EditorWrapper
           type='workspace'
           onEditorChange={this.onEditorChange}

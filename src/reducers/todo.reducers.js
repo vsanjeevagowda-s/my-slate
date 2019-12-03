@@ -1,33 +1,48 @@
 import { Value } from 'slate';
+import moment from 'moment';
 import initialValue from './value.json';
 import {
-  WORKSPACE_LIST_SUCCESS, WORKSPACE_LIST_FAILURE, WORKSPACE_CONTENT_CHANGE
-} from '../actions/workspace.actions';
+  TODO_LIST_SUCCESS, TODO_LIST_FAILURE, TODO_CONTENT_CHANGE, TODO_BY_DATE_SUCCESS, TODO_BY_DATE_FAILURE
+} from '../actions/todo.actions';
 
 const initialState = {
   value: Value.fromJSON(initialValue),
-  date: new Date()
+  date: moment(new Date()).format("YYYY-MM-DD"),
+  todoDisplayFlag: false,
 };
 
-const workspace = (state = initialState, action) => {
+const todo = (state = initialState, action) => {
   switch (action.type) {
-    case WORKSPACE_LIST_SUCCESS:
+    case TODO_LIST_SUCCESS:
       return {
         ...state
       }
-    case WORKSPACE_LIST_FAILURE:
+    case TODO_LIST_FAILURE:
       return {
         ...state
       }
-    case WORKSPACE_CONTENT_CHANGE:
+    case TODO_CONTENT_CHANGE:
       return {
         ...state,
         date: action.date,
         value: action.value
+      }
+    case TODO_BY_DATE_SUCCESS:
+      return {
+        ...state,
+        todoDisplayFlag: true,
+        date: action.resp.todo.date,
+        value: Value.fromJSON(JSON.parse(action.resp.todo.record)),
+      }
+    case TODO_BY_DATE_FAILURE:
+      return {
+        ...state,
+        value: Value.fromJSON(initialValue),
+        todoDisplayFlag: true,
       }
     default:
       return state;
   }
 }
 
-export default workspace;
+export default todo;

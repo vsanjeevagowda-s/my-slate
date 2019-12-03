@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import EditorWrapper from '../EditorWrapper';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as workspaceActions from '../../actions/workspace.actions';
+import * as todoActions from '../../actions/todo.actions';
 
 class ToDoWrapper extends Component {
 
@@ -18,35 +18,35 @@ class ToDoWrapper extends Component {
   }
 
   onEditorChange({ value }) {
-    const { date, workspaceContentChange } = this.props;
-    workspaceContentChange({
+    const { date, todoContentChange } = this.props;
+    todoContentChange({
       value,
       date,
     })
   }
 
   render() {
-    const { date, value } = this.props;
+    const { date, value, todoDisplayFlag } = this.props;
     return (
       <div>
-        {/* <EditorWrapper
+        {todoDisplayFlag && <EditorWrapper
           type='todo'
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}
           date={date}
-          value={value} /> */}
+          value={value} />}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { date, value } = state.workspace;
-  return { date, value };
+  const { date, value, todoDisplayFlag } = state.todo;
+  return { date, value, todoDisplayFlag };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ ...workspaceActions }, dispatch)
+  return bindActionCreators({ ...todoActions }, dispatch)
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoWrapper);
