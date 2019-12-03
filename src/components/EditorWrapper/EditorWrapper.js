@@ -212,7 +212,7 @@ class EditorWrapper extends Component {
             </Col>}
           </Row>
         </Col>
-        <Col>
+        <Col style={{fontSize: '14px'}}>
           <Editor
             spellCheck
             autoFocus

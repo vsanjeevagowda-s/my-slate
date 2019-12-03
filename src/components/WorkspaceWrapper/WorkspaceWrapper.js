@@ -10,16 +10,6 @@ import * as workspaceActions from '../../actions/workspace.actions';
 import initialValue from '../../reducers/value.json'
 
 
-class WorkspaceHeader extends Component {
-  render() {
-    return (
-      <div>
-        Header
-      </div>
-    )
-  }
-}
-
 class WorkspaceWrapper extends Component {
   constructor(props) {
     super(props);
@@ -61,7 +51,6 @@ class WorkspaceWrapper extends Component {
     const { date, value, workspaceDisplayFlag } = this.props;
     return (
       <div>
-        <WorkspaceHeader />
         {workspaceDisplayFlag && <EditorWrapper
           type='workspace'
           onEditorChange={this.onEditorChange}
