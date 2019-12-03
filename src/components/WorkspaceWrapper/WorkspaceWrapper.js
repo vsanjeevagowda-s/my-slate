@@ -54,7 +54,7 @@ class WorkspaceWrapper extends Component {
     this.workspaceSyncTimeOutCtl = setTimeout(() => {
       const record = JSON.stringify(value.toJSON());
       syncWorkspaceContent({ date, record })
-    }, 5000);
+    }, 500);
   }
 
   render() {

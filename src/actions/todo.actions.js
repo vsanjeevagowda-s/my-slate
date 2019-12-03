@@ -41,3 +41,30 @@ export const todoContentChange = ({ date, value }) => {
     date,
   }
 };
+
+export const TodoByDateSuccess = (resp) => {
+  return {
+    type: TODO_BY_DATE_SUCCESS,
+    resp,
+  }
+}
+
+export const TodoByDateFilure = (error) => {
+  return {
+    type: TODO_BY_DATE_FAILURE,
+    error,
+  }
+}
+
+export const getTodoRecordByDate = ({ date }) => async dispatch => {
+  try {
+    const resp = await axios.get(`${API_PATH}/todo/${date}`);
+    const { todo } = resp.data;
+    dispatch(TodoByDateSuccess({todo}));
+    return Promise.resolve({ todo });
+  } catch (error) {
+    console.log({ error })
+    dispatch(TodoByDateFilure({ error }));
+    return Promise.reject({ error });
+  }
+}
