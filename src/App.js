@@ -8,6 +8,9 @@ import {
   Col
 } from 'reactstrap';
 import Main from './components/Main';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as signinActions  from './actions/signin.actions';
 
 const AlertWrapper = ({ message, error }) => {
   if (message) {
@@ -20,6 +23,13 @@ const AlertWrapper = ({ message, error }) => {
 }
 
 class App extends Component {
+
+  componentDidMount(){
+    const token = localStorage.getItem('token');
+    const { saveTokenToStore } = this.props;
+    saveTokenToStore(token);
+  }
+
   render() {
     const { error, message, token } = this.props;
     return (
@@ -34,11 +44,13 @@ class App extends Component {
 };
 
 const mapStateToProps = state => {
-
-  const { message, error } = state.alert;
-  const { token } = state.signIn;
-  return { message, error, token };
+  const { token } = state.signin;
+  return { token };
 }
 
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ ...signinActions }, dispatch)
+};
 
-export default App;
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

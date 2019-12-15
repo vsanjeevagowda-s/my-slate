@@ -2,6 +2,7 @@ import axios from 'axios';
 const API_PATH = process.env.REACT_APP_API_PATH;
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
+export const SAVE_TOKEN_STORE = 'SAVE_TOKEN_STORE';
 
 const signInSuccess = resp => {
   return {
@@ -27,4 +28,11 @@ export const signin = body => async dispatch => {
     dispatch(signInFailure(error));
     return Promise.reject({ error });
   }
+};
+
+export const saveTokenToStore = token => async dispatch => {
+  dispatch({
+    type: SAVE_TOKEN_STORE,
+    token,
+  })
 }

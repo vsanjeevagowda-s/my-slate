@@ -1,6 +1,7 @@
 import {
   SIGNIN_SUCCESS,
-  SIGNIN_FAILURE
+  SIGNIN_FAILURE,
+  SAVE_TOKEN_STORE,
 } from '../actions/signin.actions';
 
 const initialState = {
@@ -13,13 +14,18 @@ const signin = (state = initialState, action) => {
       localStorage.setItem('token', action.resp.token)
       return {
         ...state,
-        token: ''
+        token: action.resp.token
       }
     case SIGNIN_FAILURE:
-        localStorage.removeItem('token');
+      localStorage.removeItem('token');
       return {
         ...state,
         todoDisplayFlag: true,
+      }
+    case SAVE_TOKEN_STORE:
+      return {
+        ...state,
+        token: localStorage.getItem('token')
       }
     default:
       return state;

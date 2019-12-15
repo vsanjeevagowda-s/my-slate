@@ -10,6 +10,7 @@ import {
 } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as signinActions from '../../actions/signin.actions';
 
 
@@ -28,7 +29,7 @@ class Signin extends Component {
   async signIn() {
     try {
       const { email, password } = this.state;
-      const { signin } = this.props;
+      const { signin, history } = this.props;
       await signin({ email, password });
       alert('Signin scccess');
     } catch (error) {
@@ -80,4 +81,4 @@ const mapDispatchToProps = dispatch => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signin);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Signin));

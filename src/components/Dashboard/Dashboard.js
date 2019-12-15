@@ -1,20 +1,28 @@
 import React, { Component } from 'react'
 import {
   Row,
-  Col
+  Col,
+  Container
 } from 'reactstrap';
+import { Switch, Route } from "react-router-dom";
+import WorkspaceWrapper from '../WorkspaceWrapper';
+import ToDoWrapper from '../ToDoWrapper';
 import { connect } from 'react-redux';
-import { Route } from "react-router-dom";
 
 
 class Dashboard extends Component {
   render() {
     return (
-      <Row >
-        <Col>
-        sample
-        </Col>
-      </Row>
+      <Container fluid>
+        <Row>
+          <Col className='border-right' sm={8} md={8} xs={12}>
+            <Route exact path="/dashboard/workspace" component={WorkspaceWrapper} />
+          </Col>
+          <Col>
+            <ToDoWrapper />
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
