@@ -22,8 +22,8 @@
     "slate-react": "^0.22.9"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "export NODE_ENV=development && sh -ac \". ./.env.$NODE_ENV; react-scripts start;\"",
+    "build": "export NODE_ENV=production && sh -ac \". ./.env.$NODE_ENV; react-scripts build;\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
