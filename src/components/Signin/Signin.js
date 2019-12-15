@@ -25,10 +25,15 @@ class Signin extends Component {
   }
 
 
-  signIn() {
-    const { email, password } = this.state;
-    const { signin } = this.props;
-    signin({ email, password });
+  async signIn() {
+    try {
+      const { email, password } = this.state;
+      const { signin } = this.props;
+      await signin({ email, password });
+      alert('Signin scccess');
+    } catch (error) {
+      alert('Signin Failure');
+    }
   }
 
   onChangeHandler(e){

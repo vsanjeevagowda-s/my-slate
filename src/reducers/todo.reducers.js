@@ -2,7 +2,11 @@ import { Value } from 'slate';
 import moment from 'moment';
 import initialValue from './value.json';
 import {
-  TODO_LIST_SUCCESS, TODO_LIST_FAILURE, TODO_CONTENT_CHANGE, TODO_BY_DATE_SUCCESS, TODO_BY_DATE_FAILURE
+  TODO_LIST_SUCCESS,
+  TODO_LIST_FAILURE,
+  TODO_CONTENT_CHANGE,
+  TODO_BY_DATE_SUCCESS,
+  TODO_BY_DATE_FAILURE
 } from '../actions/todo.actions';
 
 const initialState = {

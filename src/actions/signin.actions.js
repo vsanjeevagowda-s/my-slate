@@ -1,7 +1,7 @@
 import axios from 'axios';
 const API_PATH = process.env.REACT_APP_API_PATH;
-const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
-const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
+export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
+export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
 
 const signInSuccess = resp => {
   return {
@@ -20,8 +20,8 @@ const signInFailure = error => {
 export const signin = body => async dispatch => {
   try {
     const resp = await axios.post(`${API_PATH}/signIn`, body);
-    dispatch(signInSuccess(resp));
     const { token } = resp.data;
+    dispatch(signInSuccess({ token }));
     return Promise.resolve({ token });
   } catch (error) {
     dispatch(signInFailure(error));
