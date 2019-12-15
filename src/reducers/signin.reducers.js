@@ -2,6 +2,7 @@ import {
   SIGNIN_SUCCESS,
   SIGNIN_FAILURE,
   SAVE_TOKEN_STORE,
+  SIGNOUT,
 } from '../actions/signin.actions';
 
 const initialState = {
@@ -26,6 +27,12 @@ const signin = (state = initialState, action) => {
       return {
         ...state,
         token: localStorage.getItem('token')
+      }
+    case SIGNOUT:
+        localStorage.removeItem('token')
+      return {
+        ...state,
+        token: ''
       }
     default:
       return state;

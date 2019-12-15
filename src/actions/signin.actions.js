@@ -3,6 +3,7 @@ const API_PATH = process.env.REACT_APP_API_PATH;
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAILURE = 'SIGNIN_FAILURE';
 export const SAVE_TOKEN_STORE = 'SAVE_TOKEN_STORE';
+export const SIGNOUT = 'SIGNOUT';
 
 const signInSuccess = resp => {
   return {
@@ -34,5 +35,12 @@ export const saveTokenToStore = token => async dispatch => {
   dispatch({
     type: SAVE_TOKEN_STORE,
     token,
+  })
+};
+
+
+export const signOut = () => dispatch => {
+  dispatch({
+    type: SIGNOUT
   })
 }

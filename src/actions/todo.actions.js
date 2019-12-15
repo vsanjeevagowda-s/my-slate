@@ -65,7 +65,7 @@ export const getTodoRecordByDate = ({ date }) => async dispatch => {
     dispatch(TodoByDateSuccess({todo}));
     return Promise.resolve({ todo });
   } catch (error) {
-    console.log({ error })
+    console.log(error)
     dispatch(TodoByDateFilure({ error }));
     return Promise.reject({ error });
   }

@@ -6,7 +6,8 @@ import {
 } from 'reactstrap';
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import Dashboard from '../Dashboard/Dashboard';
+import Dashboard from '../Dashboard';
+import Interceptor from '../Interceptor';
 
 
 class Signedin extends Component {
@@ -14,10 +15,13 @@ class Signedin extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route exact path="/dashboard/workspace" component={Dashboard} />
-        <Redirect to="/dashboard/workspace" />
-      </Switch>
+      <React.Fragment>
+        <Interceptor />
+        <Switch>
+          <Route exact path="/dashboard/workspace" component={Dashboard} />
+          <Redirect to="/dashboard/workspace" />
+        </Switch>
+      </React.Fragment>
     )
   }
 }
