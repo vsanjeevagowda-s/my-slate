@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { headers } from './helper.actions';
+
 const API_PATH = process.env.REACT_APP_API_PATH;
 
 export const TODO_LIST_SUCCESS = 'TODO_LIST_SUCCESS';
@@ -25,7 +27,7 @@ const syncTodoFailure = error => {
 
 export const syncTodoContent = body => async dispatch => {
   try {
-    const resp = await axios.put(`${API_PATH}/todo`, body);
+    const resp = await axios.put(`${API_PATH}/todo`, body, headers());
     dispatch(syncTodoSuccess(resp));
     return Promise.resolve({ resp });
   } catch (error) {
@@ -58,7 +60,7 @@ export const TodoByDateFilure = (error) => {
 
 export const getTodoRecordByDate = ({ date }) => async dispatch => {
   try {
-    const resp = await axios.get(`${API_PATH}/todo/${date}`);
+    const resp = await axios.get(`${API_PATH}/todo/${date}`, headers());
     const { todo } = resp.data;
     dispatch(TodoByDateSuccess({todo}));
     return Promise.resolve({ todo });
