@@ -190,7 +190,7 @@ class EditorWrapper extends Component {
   }
 
   render() {
-    const { type, value, date } = this.props;
+    const { type, value, date, editorHeightClass } = this.props;
     return (
       <Row className='p-2'>
         <Col xs={12} sm={12} md={12}>
@@ -212,7 +212,7 @@ class EditorWrapper extends Component {
             </Col>}
           </Row>
         </Col>
-        <Col style={{fontSize: '14px'}}>
+        <Col style={{fontSize: '14px'}} className={`${editorHeightClass} overflow-scroll`}>
           <Editor
             spellCheck
             autoFocus

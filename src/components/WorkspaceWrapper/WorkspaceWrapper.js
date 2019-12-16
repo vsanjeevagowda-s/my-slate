@@ -56,6 +56,7 @@ class WorkspaceWrapper extends Component {
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}
           date={date}
+          editorHeightClass='workspace-editor-height'
           value={value} />}
         {!workspaceDisplayFlag && <div><Spinner style={{ width: '1rem', height: '1rem' }} type="grow" /></div>}
       </div>

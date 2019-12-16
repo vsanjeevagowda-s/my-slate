@@ -20,8 +20,8 @@ class Signin extends Component {
     this.signIn = this.signIn.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.state = {
-      email: 'rramuu1234@gmail.com',
-      password: 'Password@1'
+      email: '',
+      password: ''
     }
   }
 

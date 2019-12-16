@@ -23,3 +23,17 @@
 .h-100vh{
   height: 100vh;
 }
+
+/* Workspace editor height */
+.workspace-editor-height{
+  height: 90vh;
+}
+
+/* Todo editor height */
+.todo-editor-height{
+  height: 85vh;
+}
+
+.overflow-scroll{
+  overflow: scroll;
+}
