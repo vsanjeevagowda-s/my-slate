@@ -19,7 +19,7 @@ class Dashboard extends Component {
             <Route exact path="/dashboard/workspace" component={WorkspaceWrapper} />
           </Col>
           <Col>
-            {/* <ToDoWrapper /> */}
+            <ToDoWrapper />
           </Col>
         </Row>
       </Container>
