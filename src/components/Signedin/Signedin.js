@@ -19,6 +19,7 @@ class Signedin extends Component {
         <Interceptor />
         <Switch>
           <Route exact path="/dashboard/workspace" component={Dashboard} />
+          <Route exact path="/dashboard/docs" component={Dashboard} />
           <Redirect to="/dashboard/workspace" />
         </Switch>
       </React.Fragment>

@@ -208,7 +208,7 @@ class EditorWrapper extends Component {
             {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
               <Row>
                 <Col className='py-2 px-1'>
-                  <i class="fa fa-calendar float-right cursor-pointer"  onClick={()=> this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })}/>
+                  <i className="fa fa-calendar float-right cursor-pointer"  onClick={()=> this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })}/>
                 </Col>
                 <Col className='p-0'>
                   <Input type='date' className='float-left' name='date' value={date} onChange={(e) => this.onDateChange({ date: e.target.value })} />
@@ -218,7 +218,7 @@ class EditorWrapper extends Component {
             {(type === 'todo') && <Col xs={12} sm={12} md={12}>
               <Row>
                 <Col className='py-2 px-1'>
-                  <i class="fa fa-calendar float-right cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
+                  <i className="fa fa-calendar float-right cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
                 </Col>
                 <Col className='p-0'>
                   <Input type='date' className='float-left' name='date' value={date} onChange={(e) => this.onDateChange({ date: e.target.value })} />
