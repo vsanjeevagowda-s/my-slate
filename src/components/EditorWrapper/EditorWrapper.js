@@ -3,6 +3,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import { Editor } from 'slate-react';
 import { isKeyHotkey } from 'is-hotkey';
 import { Row, Col, Button, Input } from 'reactstrap';
+import moment from 'moment';
+import FolderTree from 'react-folder-tree';
 
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
@@ -10,21 +12,30 @@ const isUnderlinedHotkey = isKeyHotkey('mod+u');
 const isCodeHotkey = isKeyHotkey('mod+`');
 const DEFAULT_NODE = 'paragraph';
 
+const testData = {
+  "id": 1,
+  "filename": "All Categories",
+  "children": [{
+    "id": 2,
+    "filename": "For Sale",
+  }]
+}
+
 class EditorWrapper extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.onDateChange = this.onDateChange.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
-  onDateChange = ({date}) => {
+  onDateChange = ({ date }) => {
     const { onDateChange } = this.props;
-    onDateChange({date})
+    onDateChange({ date })
   }
 
   onChange = ({ value }) => {
     const { onEditorChange } = this.props;
-    onEditorChange && onEditorChange({value});
+    onEditorChange && onEditorChange({ value });
   };
 
   onKeyDown = (event, editor, next) => {
@@ -189,41 +200,77 @@ class EditorWrapper extends Component {
     }
   }
 
+  toolbar() {
+    const { type, value, date, editorHeightClass } = this.props;
+    return (
+      <Row className='border-bottom pb-2'>
+        <Col>
+          {this.renderMarkButton('bold', 'fa fa-bold')}
+          {this.renderMarkButton('italic', 'fa fa-italic')}
+          {this.renderMarkButton('underlined', 'fa fa-underline')}
+          {this.renderMarkButton('code', 'fa fa-code')}
+          {this.renderBlockButton('heading-one', 'fa fa-heading1')}
+          {/* {this.renderBlockButton('heading-two', 'fa fa-heading2')} */}
+          {this.renderBlockButton('numbered-list', 'fa fa-list-ol')}
+        </Col>
+        {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
+          <Row>
+            <Col className='py-2 px-1'>
+              <i className="fa fa-calendar float-right cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
+            </Col>
+            <Col className='p-0'>
+              <Input type='date' className='float-left' name='date' value={date} onChange={(e) => this.onDateChange({ date: e.target.value })} />
+            </Col>
+          </Row>
+        </Col>}
+        {(type === 'todo') && <Col xs={12} sm={12} md={12}>
+          <Row>
+            <Col className='py-2 px-1'>
+              <i className="fa fa-calendar float-right cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
+            </Col>
+            <Col className='p-0'>
+              <Input type='date' className='float-left' name='date' value={date} onChange={(e) => this.onDateChange({ date: e.target.value })} />
+            </Col>
+          </Row>
+        </Col>}
+      </Row>
+    )
+  }
+
+  folders(){
+    return(
+      <FolderTree      
+      data={testData}       
+    />
+    )
+  }
+
   render() {
-    const { type, value, date } = this.props;
+    const { type, value, date, editorHeightClass } = this.props;
     return (
       <Row className='p-2'>
         <Col xs={12} sm={12} md={12}>
-          <Row className='border-bottom pb-2'>
-            <Col>
-              {this.renderMarkButton('bold', 'fa fa-bold')}
-              {this.renderMarkButton('italic', 'fa fa-italic')}
-              {this.renderMarkButton('underlined', 'fa fa-underline')}
-              {this.renderMarkButton('code', 'fa fa-code')}
-              {this.renderBlockButton('heading-one', 'fa fa-heading1')}
-              {this.renderBlockButton('heading-two', 'fa fa-heading2')}
-              {this.renderBlockButton('numbered-list', 'fa fa-list-ol')}
-            </Col>
-            {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
-              <Input type='date' name='date' value={date} onChange={(e) => this.onDateChange({date: e.target.value})}/>
-            </Col>}
-            {(type === 'todo') && <Col xs={12} sm={12} md={12}>
-            <Input type='date' name='date' value={date} onChange={(e) => this.onDateChange({date: e.target.value})} />
-            </Col>}
-          </Row>
+          {this.toolbar()}
         </Col>
-        <Col style={{fontSize: '14px'}}>
-          <Editor
-            spellCheck
-            autoFocus
-            placeholder="Enter some rich text..."
-            ref={this.ref}
-            value={value}
-            onChange={this.onChange}
-            onKeyDown={this.onKeyDown}
-            renderBlock={this.renderBlock}
-            renderMark={this.renderMark}
-          />
+        <Col style={{ fontSize: '14px' }} className={`${editorHeightClass} overflow-scroll`}>
+          <Row>
+            {(type === 'docs') && <Col md={2} sm={2} className='bg-light'>
+              {this.folders()}
+            </Col>}
+            <Col>
+              <Editor
+                spellCheck
+                autoFocus
+                placeholder="Enter some rich text..."
+                ref={this.ref}
+                value={value}
+                onChange={this.onChange}
+                onKeyDown={this.onKeyDown}
+                renderBlock={this.renderBlock}
+                renderMark={this.renderMark}
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
     )

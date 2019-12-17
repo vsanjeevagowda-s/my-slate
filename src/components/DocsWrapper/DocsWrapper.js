@@ -4,13 +4,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Value } from 'slate';
 import {
-  Spinner
+  Spinner,
+  Row,
+  Col
 } from 'reactstrap';
+import FolderTree from 'react-folder-tree';
 import * as workspaceActions from '../../actions/workspace.actions';
 import initialValue from '../../reducers/value.json'
 
 
-class WorkspaceWrapper extends Component {
+class DocsWrapper extends Component {
   constructor(props) {
     super(props);
     this.onEditorChange = this.onEditorChange.bind(this);
@@ -50,16 +53,20 @@ class WorkspaceWrapper extends Component {
   render() {
     const { date, value, workspaceDisplayFlag } = this.props;
     return (
-      <div>
-        {workspaceDisplayFlag && <EditorWrapper
-          type='workspace'
-          onEditorChange={this.onEditorChange}
-          onDateChange={this.onDateChange}
-          date={date}
-          editorHeightClass='workspace-editor-height'
-          value={value} />}
-        {!workspaceDisplayFlag && <div><Spinner style={{ width: '1rem', height: '1rem' }} type="grow" /></div>}
-      </div>
+      <Row>
+        <Col>
+          <div>
+            {workspaceDisplayFlag && <EditorWrapper
+              type='docs'
+              onEditorChange={this.onEditorChange}
+              onDateChange={this.onDateChange}
+              date={date}
+              editorHeightClass='workspace-editor-height'
+              value={value} />}
+            {!workspaceDisplayFlag && <div><Spinner style={{ width: '1rem', height: '1rem' }} type="grow" /></div>}
+          </div>
+        </Col>
+      </Row>
     )
   }
 }
@@ -73,4 +80,4 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({ ...workspaceActions }, dispatch)
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(DocsWrapper);

@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { headers } from './helper.actions';
+
 const API_PATH = process.env.REACT_APP_API_PATH;
 
 export const WORKSPACE_LIST_SUCCESS = 'WORKSPACE_LIST_SUCCESS';
@@ -23,7 +25,8 @@ const workspaceListFailure = (error) => {
 
 export const listWorkspace = () => async dispatch => {
   try {
-    const resp = await axios.get(`${API_PATH}/list`);
+    const resp = await axios.get(`${API_PATH}/list`, headers());
+    // const resp = await axios.get(`${API_PATH}/list`);
     dispatch(workspaceListSuccess(resp));
     return Promise.resolve({ resp });
   } catch (error) {
@@ -34,7 +37,8 @@ export const listWorkspace = () => async dispatch => {
 
 export const syncWorkspaceContent = body => async dispatch => {
   try {
-    const resp = await axios.put(`${API_PATH}/workspace`, body);
+    const resp = await axios.put(`${API_PATH}/workspace`, body, headers());
+    // const resp = await axios.put(`${API_PATH}/workspace`, body);
     dispatch(workspaceListSuccess(resp));
     return Promise.resolve({ resp });
   } catch (error) {
@@ -67,12 +71,13 @@ export const WorkspaceByDateFilure = (error) => {
 
 export const getWorkspaceRecordByDate = ({ date }) => async dispatch => {
   try {
-    const resp = await axios.get(`${API_PATH}/workspace/${date}`);
+    const resp = await axios.get(`${API_PATH}/workspace/${date}`, headers());
+    // const resp = await axios.get(`${API_PATH}/workspace/${date}`);
     const { workspace } = resp.data;
     dispatch(WorkspaceByDateSuccess({workspace}));
     return Promise.resolve({ workspace });
   } catch (error) {
-    console.log({ error })
+    console.log(error )
     dispatch(WorkspaceByDateFilure({ error }));
     return Promise.reject({ error });
   }

@@ -51,6 +51,7 @@ class ToDoWrapper extends Component {
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}
           date={date}
+          editorHeightClass='todo-editor-height'
           value={value} />}
       </div>
     )
