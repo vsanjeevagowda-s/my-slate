@@ -23,7 +23,6 @@ class Dashboard extends Component {
 
   tabClick(path){
     const { history } = this.props;
-    debugger
     history.push(path);
   }
 
