@@ -6,6 +6,7 @@ import { Value } from 'slate';
 import {
   Spinner
 } from 'reactstrap';
+import moment from 'moment';
 import * as workspaceActions from '../../actions/workspace.actions';
 import initialValue from '../../reducers/value.json'
 
@@ -28,7 +29,7 @@ class WorkspaceWrapper extends Component {
       getWorkspaceRecordByDate, workspaceContentChange
     } = this.props;
     workspaceContentChange({
-      date,
+      date: moment(date).format('YYYY-MM-DD'),
       value: Value.fromJSON(initialValue)
     })
     getWorkspaceRecordByDate({ date })
@@ -38,12 +39,12 @@ class WorkspaceWrapper extends Component {
     const { date, workspaceContentChange, syncWorkspaceContent } = this.props;
     workspaceContentChange({
       value,
-      date,
+      date: moment(date).format('YYYY-MM-DD'),
     })
     clearTimeout(this.workspaceSyncTimeOutCtl);
     this.workspaceSyncTimeOutCtl = setTimeout(() => {
       const record = JSON.stringify(value.toJSON());
-      syncWorkspaceContent({ date, record })
+      syncWorkspaceContent({ date: moment(date).format('YYYY-MM-DD'), record })
     }, 500);
   }
 

@@ -1,9 +1,4 @@
 import React, { Component } from 'react'
-import {
-  Row,
-  Col,
-  Container
-} from 'reactstrap';
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 import Dashboard from '../Dashboard';

@@ -201,7 +201,7 @@ class EditorWrapper extends Component {
   }
 
   toolbar() {
-    const { type, value, date, editorHeightClass } = this.props;
+    const { type, date } = this.props;
     return (
       <Row className='border-bottom pb-2'>
         <Col>
@@ -246,7 +246,7 @@ class EditorWrapper extends Component {
   }
 
   render() {
-    const { type, value, date, editorHeightClass } = this.props;
+    const { type, value, editorHeightClass } = this.props;
     return (
       <Row className='p-2'>
         <Col xs={12} sm={12} md={12}>

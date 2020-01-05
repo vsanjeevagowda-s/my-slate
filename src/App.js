@@ -3,14 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {
   Container,
-  Alert,
-  Row,
-  Col
+  Alert
 } from 'reactstrap';
+import Socket from './lib/socket';
+import * as helperActions from './actions/helper.actions';
 import Main from './components/Main';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as signinActions  from './actions/signin.actions';
+import * as signinActions from './actions/signin.actions';
+const socketClient = new Socket();
 
 const AlertWrapper = ({ message, error }) => {
   if (message) {
@@ -24,10 +25,11 @@ const AlertWrapper = ({ message, error }) => {
 
 class App extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     const token = localStorage.getItem('token');
-    const { saveTokenToStore } = this.props;
+    const { saveTokenToStore, persistSocketInstance } = this.props;
     saveTokenToStore(token);
+    persistSocketInstance(socketClient);
   }
 
   render() {
@@ -49,7 +51,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ ...signinActions }, dispatch)
+  return bindActionCreators({ ...signinActions, ...helperActions }, dispatch)
 };
 
 
