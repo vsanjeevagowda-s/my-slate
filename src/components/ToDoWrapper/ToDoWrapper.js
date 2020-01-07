@@ -16,8 +16,14 @@ class ToDoWrapper extends Component {
   }
 
   componentDidMount() {
-    const { date, getTodoRecordByDate } = this.props;
+    const { date, getTodoRecordByDate, socketClient } = this.props;
     getTodoRecordByDate({ date });
+    socketClient.registerTodoUpdateEvent((notifyDate) => {
+      console.log('====>', notifyDate);
+      if (date === notifyDate) {
+        getTodoRecordByDate({ date })
+      }
+    })
   }
 
   onDateChange = ({ date }) => {
@@ -60,7 +66,8 @@ class ToDoWrapper extends Component {
 
 const mapStateToProps = state => {
   const { date, value, todoDisplayFlag } = state.todo;
-  return { date, value, todoDisplayFlag };
+  const { socketClient } = state.helper;
+  return { date, value, todoDisplayFlag, socketClient };
 };
 
 const mapDispatchToProps = dispatch => {

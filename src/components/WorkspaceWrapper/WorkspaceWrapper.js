@@ -20,23 +20,35 @@ class WorkspaceWrapper extends Component {
   }
 
   componentDidMount() {
-    const { date, getWorkspaceRecordByDate } = this.props;
+    console.log('Inside the [WorkspaceWrapper.js] [componentDidMount]')
+    const { date, getWorkspaceRecordByDate, socketClient } = this.props;
     getWorkspaceRecordByDate({ date });
+    socketClient.registerWorkspaceUpdateEvent((notifyDate) => {
+      const { date:currentDate } = this.props;
+      console.log('notifyDate =>', notifyDate);
+      console.log('currentDate =>', currentDate);
+      if (date === notifyDate) {
+        getWorkspaceRecordByDate({ date })
+      }
+    })
   }
 
   onDateChange = ({ date }) => {
     const {
       getWorkspaceRecordByDate, workspaceContentChange
-    } = this.props;
+      , socketClient } = this.props;
     workspaceContentChange({
       date: moment(date).format('YYYY-MM-DD'),
       value: Value.fromJSON(initialValue)
     })
     getWorkspaceRecordByDate({ date })
+      .then(() => {
+        socketClient.workspaceChangeEvent(date)
+      })
   }
 
   onEditorChange({ value }) {
-    const { date, workspaceContentChange, syncWorkspaceContent } = this.props;
+    const { date, workspaceContentChange, syncWorkspaceContent, socketClient } = this.props;
     workspaceContentChange({
       value,
       date: moment(date).format('YYYY-MM-DD'),
@@ -45,6 +57,9 @@ class WorkspaceWrapper extends Component {
     this.workspaceSyncTimeOutCtl = setTimeout(() => {
       const record = JSON.stringify(value.toJSON());
       syncWorkspaceContent({ date: moment(date).format('YYYY-MM-DD'), record })
+        .then(() => {
+          socketClient.workspaceChangeEvent(date)
+        })
     }, 500);
   }
 
@@ -67,7 +82,8 @@ class WorkspaceWrapper extends Component {
 
 const mapStateToProps = state => {
   const { date, value, workspaceDisplayFlag } = state.workspace;
-  return { date, value, workspaceDisplayFlag };
+  const { socketClient } = state.helper;
+  return { date, value, workspaceDisplayFlag, socketClient };
 };
 
 const mapDispatchToProps = dispatch => {

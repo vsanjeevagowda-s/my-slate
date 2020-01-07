@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import moment from 'moment';
 
 const SOCKET_PATH = process.env.REACT_APP_SOCKET_PATH;
  
@@ -7,6 +8,7 @@ class Socket {
     console.log('=> Inside the Socket class [constructor] <=');
     this.socket = io(SOCKET_PATH);
     this.registerConnectEvent();
+    this.registerDisconnectEvent();
   }
 
   registerConnectEvent(){
@@ -39,15 +41,23 @@ class Socket {
     })
   };
 
-  
-
-  leaveDateRoom(date){
-    this.socket.emit('leave_room', date);
+  workspaceChangeEvent(date){
+    console.log('making registerWorkspaceChangeEvent...')
+    this.socket.emit('workspace_change', moment(date).format('YYYY-MM-DD'))
   }
 
-  joinDateRoom(date){
-    this.socket.emit('join_room', date);
+  toDoChangeEvent(date){
+    console.log('making toDoChangeEvent...')
+    this.socket.emit('todo_change', moment(date).format('YYYY-MM-DD'))
   }
+
+  // leaveDateRoom(date){
+  //   this.socket.emit('leave_room', date);
+  // }
+
+  // joinDateRoom(date){
+  //   this.socket.emit('join_room', date);
+  // }
 }
 
 export default Socket;
