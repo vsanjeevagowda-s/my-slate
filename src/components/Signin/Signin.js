@@ -29,7 +29,7 @@ class Signin extends Component {
   async signIn() {
     try {
       const { email, password } = this.state;
-      const { signin, history } = this.props;
+      const { signin } = this.props;
       await signin({ email, password });
       alert('Signin scccess');
     } catch (error) {

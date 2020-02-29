@@ -4,8 +4,6 @@ import './App.css';
 import {
   Container,
   Alert,
-  Row,
-  Col
 } from 'reactstrap';
 import Main from './components/Main';
 import { connect } from 'react-redux';

@@ -8,7 +8,6 @@ import {
   Row,
   Col
 } from 'reactstrap';
-import FolderTree from 'react-folder-tree';
 import * as workspaceActions from '../../actions/workspace.actions';
 import initialValue from '../../reducers/value.json'
 

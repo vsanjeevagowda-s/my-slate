@@ -48,10 +48,11 @@ class WorkspaceWrapper extends Component {
   }
 
   render() {
-    const { date, value, workspaceDisplayFlag } = this.props;
+    const { date, value, workspaceDisplayFlag, apiCallStatus } = this.props;
     return (
       <div>
         {workspaceDisplayFlag && <EditorWrapper
+          apiCallStatus={apiCallStatus}
           type='workspace'
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}
@@ -65,8 +66,8 @@ class WorkspaceWrapper extends Component {
 }
 
 const mapStateToProps = state => {
-  const { date, value, workspaceDisplayFlag } = state.workspace;
-  return { date, value, workspaceDisplayFlag };
+  const { date, value, workspaceDisplayFlag, apiCallStatus } = state.workspace;
+  return { date, value, workspaceDisplayFlag, apiCallStatus };
 };
 
 const mapDispatchToProps = dispatch => {

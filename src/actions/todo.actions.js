@@ -10,6 +10,7 @@ export const TODO_BY_DATE_SUCCESS = 'TODO_BY_DATE_SUCCESS';
 export const TODO_BY_DATE_FAILURE = 'TODO_BY_DATE_FAILURE';
 export const SYNC_TODO_SUCCESS = 'SYNC_TODO_SUCCESS';
 export const SYNC_TODO_FAILURE = 'SYNC_TODO_FAILURE';
+export const TODO_LIST_API_CALL = 'TODO_LIST_API_CALL';
 
 const syncTodoSuccess = res => {
   return {
@@ -27,6 +28,7 @@ const syncTodoFailure = error => {
 
 export const syncTodoContent = body => async dispatch => {
   try {
+    dispatch({ type: TODO_LIST_API_CALL });
     const resp = await axios.put(`${API_PATH}/todo`, body, headers());
     dispatch(syncTodoSuccess(resp));
     return Promise.resolve({ resp });
@@ -60,6 +62,7 @@ export const TodoByDateFilure = (error) => {
 
 export const getTodoRecordByDate = ({ date }) => async dispatch => {
   try {
+    dispatch({ type: TODO_LIST_API_CALL });
     const resp = await axios.get(`${API_PATH}/todo/${date}`, headers());
     const { todo } = resp.data;
     dispatch(TodoByDateSuccess({todo}));

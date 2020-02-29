@@ -5,6 +5,7 @@ import { isKeyHotkey } from 'is-hotkey';
 import { Row, Col, Button, Input, Spinner } from 'reactstrap';
 import moment from 'moment';
 import FolderTree from 'react-folder-tree';
+import { API_FAILURE, API_PENDING, API_SUCCESS } from '../../actions/constants';
 
 const isBoldHotkey = isKeyHotkey('mod+b');
 const isItalicHotkey = isKeyHotkey('mod+i');
@@ -201,7 +202,11 @@ class EditorWrapper extends Component {
   }
 
   toolbar() {
-    const { type, value, date, editorHeightClass } = this.props;
+    const {
+      type,
+      date,
+      apiCallStatus
+    } = this.props;
     return (
       <Row className='border-bottom pb-2'>
         <Col>
@@ -216,7 +221,9 @@ class EditorWrapper extends Component {
         {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
           <Row>
             <Col className='py-2 px-1 text-right'>
-              <Spinner type="border" size="sm" />
+              {(apiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
+              {(apiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
+              {(apiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
@@ -229,7 +236,9 @@ class EditorWrapper extends Component {
         {(type === 'todo') && <Col xs={12} sm={12} md={12}>
           <Row>
             <Col className='py-2 px-1 text-right'>
-              <Spinner type="border" size="sm" />
+            {(apiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
+              {(apiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
+              {(apiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar  cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
@@ -252,7 +261,7 @@ class EditorWrapper extends Component {
   }
 
   render() {
-    const { type, value, date, editorHeightClass } = this.props;
+    const { type, value, editorHeightClass } = this.props;
     return (
       <Row className='p-2'>
         <Col xs={12} sm={12} md={12}>

@@ -8,6 +8,7 @@ export const WORKSPACE_LIST_FAILURE = 'WORKSPACE_LIST_FAILURE';
 export const WORKSPACE_CONTENT_CHANGE = 'WORKSPACE_CONTENT_CHANGE';
 export const WORKSPACE_BY_DATE_SUCCESS = 'WORKSPACE_BY_DATE_SUCCESS';
 export const WORKSPACE_BY_DATE_FAILURE = 'WORKSPACE_BY_DATE_FAILURE';
+export const WORKSPACE_LIST_API_CALL = 'WORKSPACE_LIST_API_CALL';
 
 const workspaceListSuccess = (resp) => {
   return {
@@ -25,8 +26,8 @@ const workspaceListFailure = (error) => {
 
 export const listWorkspace = () => async dispatch => {
   try {
+    dispatch({ type: WORKSPACE_LIST_API_CALL });
     const resp = await axios.get(`${API_PATH}/list`, headers());
-    // const resp = await axios.get(`${API_PATH}/list`);
     dispatch(workspaceListSuccess(resp));
     return Promise.resolve({ resp });
   } catch (error) {
@@ -37,8 +38,8 @@ export const listWorkspace = () => async dispatch => {
 
 export const syncWorkspaceContent = body => async dispatch => {
   try {
+    dispatch({ type: WORKSPACE_LIST_API_CALL });
     const resp = await axios.put(`${API_PATH}/workspace`, body, headers());
-    // const resp = await axios.put(`${API_PATH}/workspace`, body);
     dispatch(workspaceListSuccess(resp));
     return Promise.resolve({ resp });
   } catch (error) {
@@ -71,8 +72,8 @@ export const WorkspaceByDateFilure = (error) => {
 
 export const getWorkspaceRecordByDate = ({ date }) => async dispatch => {
   try {
+    dispatch({ type: WORKSPACE_LIST_API_CALL });
     const resp = await axios.get(`${API_PATH}/workspace/${date}`, headers());
-    // const resp = await axios.get(`${API_PATH}/workspace/${date}`);
     const { workspace } = resp.data;
     dispatch(WorkspaceByDateSuccess({workspace}));
     return Promise.resolve({ workspace });

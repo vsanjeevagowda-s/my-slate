@@ -7,7 +7,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import WorkspaceWrapper from '../WorkspaceWrapper';
 import ToDoWrapper from '../ToDoWrapper';
 import DocsWrapper from '../DocsWrapper';
