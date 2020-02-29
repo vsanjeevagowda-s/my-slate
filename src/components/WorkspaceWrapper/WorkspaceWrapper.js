@@ -52,7 +52,7 @@ class WorkspaceWrapper extends Component {
     return (
       <div>
         {workspaceDisplayFlag && <EditorWrapper
-          apiCallStatus={apiCallStatus}
+          workspaceApiCallStatus={apiCallStatus}
           type='workspace'
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}

@@ -47,7 +47,7 @@ class ToDoWrapper extends Component {
     return (
       <div>
         {todoDisplayFlag && <EditorWrapper
-          apiCallStatus={apiCallStatus}
+          toDoApiCallStatus={apiCallStatus}
           type='todo'
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}

@@ -205,7 +205,8 @@ class EditorWrapper extends Component {
     const {
       type,
       date,
-      apiCallStatus
+      workspaceApiCallStatus,
+      toDoApiCallStatus
     } = this.props;
     return (
       <Row className='border-bottom pb-2'>
@@ -221,9 +222,9 @@ class EditorWrapper extends Component {
         {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
           <Row>
             <Col className='py-2 px-1 text-right'>
-              {(apiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
-              {(apiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
-              {(apiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
+              {(workspaceApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
+              {(workspaceApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
+              {(workspaceApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
@@ -236,9 +237,9 @@ class EditorWrapper extends Component {
         {(type === 'todo') && <Col xs={12} sm={12} md={12}>
           <Row>
             <Col className='py-2 px-1 text-right'>
-            {(apiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
-              {(apiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
-              {(apiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
+              {(toDoApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
+              {(toDoApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
+              {(toDoApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar  cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
