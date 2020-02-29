@@ -38,10 +38,13 @@ const workspace = (state = initialState, action) => {
         apiCallStatus: API_FAILURE
       }
     case WORKSPACE_CONTENT_CHANGE:
+      const presentDate = moment(new Date()).format("YYYY-MM-DD")
+      const date =  moment(action.date).format("YYYY-MM-DD");
       return {
         ...state,
         date: action.date,
-        value: action.value
+        value: action.value,
+        isReadonly: ( date < presentDate)
       }
     case WORKSPACE_BY_DATE_SUCCESS:
       return {

@@ -262,7 +262,7 @@ class EditorWrapper extends Component {
   }
 
   render() {
-    const { type, value, editorHeightClass } = this.props;
+    const { type, value, editorHeightClass, isReadonly } = this.props;
     return (
       <Row className='p-2'>
         <Col xs={12} sm={12} md={12}>
@@ -275,6 +275,7 @@ class EditorWrapper extends Component {
             </Col>}
             <Col>
               <Editor
+                readOnly={isReadonly}
                 spellCheck
                 autoFocus
                 placeholder="Enter some rich text..."
