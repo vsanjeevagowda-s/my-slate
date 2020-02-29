@@ -206,7 +206,8 @@ class EditorWrapper extends Component {
       type,
       date,
       workspaceApiCallStatus,
-      toDoApiCallStatus
+      toDoApiCallStatus,
+      isReadonly
     } = this.props;
     return (
       <Row className='border-bottom pb-2'>
@@ -225,6 +226,8 @@ class EditorWrapper extends Component {
               {(workspaceApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
               {(workspaceApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
               {(workspaceApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
+              {isReadonly && <i class="fa fa-lock px-1" />}
+              {!isReadonly &&  <i class="fa fa-unlock-alt px-1" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
@@ -240,6 +243,8 @@ class EditorWrapper extends Component {
               {(toDoApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
               {(toDoApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
               {(toDoApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
+              {isReadonly && <i class="fa fa-lock px-1" />}
+              {!isReadonly &&  <i class="fa fa-unlock-alt px-1" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar  cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
