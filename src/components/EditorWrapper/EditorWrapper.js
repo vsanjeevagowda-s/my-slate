@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import { Editor } from 'slate-react';
 import { isKeyHotkey } from 'is-hotkey';
-import { Row, Col, Button, Input } from 'reactstrap';
+import { Row, Col, Button, Input, Spinner } from 'reactstrap';
 import moment from 'moment';
 import FolderTree from 'react-folder-tree';
 
@@ -215,8 +215,11 @@ class EditorWrapper extends Component {
         </Col>
         {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
           <Row>
-            <Col className='py-2 px-1'>
-              <i className="fa fa-calendar float-right cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
+            <Col className='py-2 px-1 text-right'>
+              <Spinner type="border" size="sm" />
+            </Col>
+            <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
+              <i className="fa fa-calendar cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
             </Col>
             <Col className='p-0'>
               <Input type='date' className='float-left' name='date' value={date} onChange={(e) => this.onDateChange({ date: e.target.value })} />
@@ -225,10 +228,13 @@ class EditorWrapper extends Component {
         </Col>}
         {(type === 'todo') && <Col xs={12} sm={12} md={12}>
           <Row>
-            <Col className='py-2 px-1'>
-              <i className="fa fa-calendar float-right cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
+            <Col className='py-2 px-1 text-right'>
+              <Spinner type="border" size="sm" />
             </Col>
-            <Col className='p-0'>
+            <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
+              <i className="fa fa-calendar  cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
+            </Col>
+            <Col className='p-0  text-right'>
               <Input type='date' className='float-left' name='date' value={date} onChange={(e) => this.onDateChange({ date: e.target.value })} />
             </Col>
           </Row>
