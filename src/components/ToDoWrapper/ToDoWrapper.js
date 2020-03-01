@@ -16,12 +16,20 @@ class ToDoWrapper extends Component {
   }
 
   componentDidMount() {
-    const { date, getTodoRecordByDate } = this.props;
+    const {
+      todo: {
+        date
+      },
+      getTodoRecordByDate
+    } = this.props;
     getTodoRecordByDate({ date });
   }
 
   onDateChange = ({ date }) => {
-    const { getTodoRecordByDate, todoContentChange } = this.props;
+    const {
+      getTodoRecordByDate,
+      todoContentChange
+    } = this.props;
     todoContentChange({
       date,
       value: Value.fromJSON(initialValue)
@@ -30,7 +38,13 @@ class ToDoWrapper extends Component {
   }
 
   onEditorChange({ value }) {
-    const { date, todoContentChange, syncTodoContent } = this.props;
+    const {
+      todo: {
+        date
+      },
+      todoContentChange,
+      syncTodoContent
+    } = this.props;
     todoContentChange({
       value,
       date,
@@ -43,7 +57,16 @@ class ToDoWrapper extends Component {
   }
 
   render() {
-    const { date, value, isReadonly, todoDisplayFlag, workspaceRequestStatus } = this.props;
+    const {
+      todo:
+      {
+        date,
+        value,
+        isReadonly,
+        todoDisplayFlag,
+        workspaceRequestStatus
+      }
+    } = this.props;
     return (
       <div>
         {todoDisplayFlag && <EditorWrapper
@@ -61,9 +84,9 @@ class ToDoWrapper extends Component {
 }
 
 const mapStateToProps = state => {
-  const { date, value, isReadonly, todoDisplayFlag, workspaceRequestStatus } = state.todo;
-  return { date, value, isReadonly, todoDisplayFlag, workspaceRequestStatus };
-};
+  const { todo } = state;
+  return { todo };
+}
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({ ...todoActions }, dispatch)
