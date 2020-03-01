@@ -8,6 +8,7 @@ import {
   WORKSPACE_BY_DATE_FAILURE,
   WORKSPACE_LIST_REQUEST,
   GET_VERSIONS_REQUEST,
+  HIDE_VERSION_LIST_MODAL,
 } from '../actions/workspace.actions';
 import { API_SUCCESS, API_FAILURE, API_PENDING } from '../actions/constants';
 import moment from 'moment';
@@ -71,6 +72,11 @@ const workspace = (state = initialState, action) => {
         ...state,
         versionListModelFlag: true,
         versionRequestStatus: API_PENDING
+      }
+    case HIDE_VERSION_LIST_MODAL:
+      return {
+        ...state,
+        versionListModelFlag: false,
       }
     default:
       return state;

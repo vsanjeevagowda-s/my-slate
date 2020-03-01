@@ -11,6 +11,7 @@ export const WORKSPACE_BY_DATE_FAILURE = 'WORKSPACE_BY_DATE_FAILURE';
 export const WORKSPACE_LIST_REQUEST = 'WORKSPACE_LIST_REQUEST';
 export const GET_VERSIONS_REQUEST = 'GET_VERSIONS_REQUEST';
 export const GET_VERSIONS_REQUEST_SUCCESS = 'GET_VERSIONS_REQUEST_SUCCESS';
+export const HIDE_VERSION_LIST_MODAL = 'HIDE_VERSION_LIST_MODAL';
 
 const workspaceListSuccess = (resp) => {
   return {
@@ -95,8 +96,9 @@ export const getVersions = () => dispatch => {
   }
 }
 
-export const hideVersions = () => dispatch => {
+export const hideVersionListModelFn = () => dispatch => {
   try {
+    dispatch({ type: HIDE_VERSION_LIST_MODAL });
   } catch (error) {
     console.log('hideVersions', error)
   }

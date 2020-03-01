@@ -68,11 +68,12 @@ class WorkspaceWrapper extends Component {
         isReadonly,
         workspaceDisplayFlag,
         workspaceRequestStatus,
-        getVersions,
         versionListModelFlag,
         versions,
         versionRequestStatus
-      }
+      },
+      getVersions,
+      hideVersionListModelFn
     } = this.props;
     return (
       <div>
@@ -88,7 +89,8 @@ class WorkspaceWrapper extends Component {
           value={value} />}
         {!workspaceDisplayFlag && <div><Spinner style={{ width: '1rem', height: '1rem' }} type="grow" /></div>}
         {versionListModelFlag && <VersionList versions={versions}
-          versionRequestStatus={versionRequestStatus} />}
+          versionRequestStatus={versionRequestStatus}
+          hideVersionListModelFn={hideVersionListModelFn} />}
       </div>
     )
   }

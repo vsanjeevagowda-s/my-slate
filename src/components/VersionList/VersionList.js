@@ -9,11 +9,11 @@ class VersionList extends Component {
     const {
       versions,
       versionRequestStatus,
-      hideModel
+      hideVersionListModelFn
     } = this.props;
     return (
-      <Modal isOpen toggle={() => hideModel()} className="modal-lg">
-        <ModalHeader toggle={() => hideModel()}>Versions ({versions.length})</ModalHeader>
+      <Modal isOpen toggle={() => hideVersionListModelFn()} className="modal-lg">
+        <ModalHeader toggle={() => hideVersionListModelFn()}>Versions ({versions.length})</ModalHeader>
         <ModalBody>
           {(versionRequestStatus === API_PENDING) && <div>Pending....</div>}
           {(versionRequestStatus === API_SUCCESS) && <div>
