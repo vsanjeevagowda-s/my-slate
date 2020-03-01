@@ -8,7 +8,9 @@ export const WORKSPACE_LIST_FAILURE = 'WORKSPACE_LIST_FAILURE';
 export const WORKSPACE_CONTENT_CHANGE = 'WORKSPACE_CONTENT_CHANGE';
 export const WORKSPACE_BY_DATE_SUCCESS = 'WORKSPACE_BY_DATE_SUCCESS';
 export const WORKSPACE_BY_DATE_FAILURE = 'WORKSPACE_BY_DATE_FAILURE';
-export const WORKSPACE_LIST_API_CALL = 'WORKSPACE_LIST_API_CALL';
+export const WORKSPACE_LIST_REQUEST = 'WORKSPACE_LIST_REQUEST';
+export const GET_VERSIONS_REQUEST = 'GET_VERSIONS_REQUEST';
+export const GET_VERSIONS_REQUEST_SUCCESS = 'GET_VERSIONS_REQUEST_SUCCESS';
 
 const workspaceListSuccess = (resp) => {
   return {
@@ -26,7 +28,7 @@ const workspaceListFailure = (error) => {
 
 export const listWorkspace = () => async dispatch => {
   try {
-    dispatch({ type: WORKSPACE_LIST_API_CALL });
+    dispatch({ type: WORKSPACE_LIST_REQUEST });
     const resp = await axios.get(`${API_PATH}/list`, headers());
     dispatch(workspaceListSuccess(resp));
     return Promise.resolve({ resp });
@@ -38,7 +40,7 @@ export const listWorkspace = () => async dispatch => {
 
 export const syncWorkspaceContent = body => async dispatch => {
   try {
-    dispatch({ type: WORKSPACE_LIST_API_CALL });
+    dispatch({ type: WORKSPACE_LIST_REQUEST });
     const resp = await axios.put(`${API_PATH}/workspace`, body, headers());
     dispatch(workspaceListSuccess(resp));
     return Promise.resolve({ resp });
@@ -72,7 +74,7 @@ export const WorkspaceByDateFilure = (error) => {
 
 export const getWorkspaceRecordByDate = ({ date }) => async dispatch => {
   try {
-    dispatch({ type: WORKSPACE_LIST_API_CALL });
+    dispatch({ type: WORKSPACE_LIST_REQUEST });
     const resp = await axios.get(`${API_PATH}/workspace/${date}`, headers());
     const { workspace } = resp.data;
     dispatch(WorkspaceByDateSuccess({workspace}));
@@ -81,5 +83,21 @@ export const getWorkspaceRecordByDate = ({ date }) => async dispatch => {
     console.log(error )
     dispatch(WorkspaceByDateFilure({ error }));
     return Promise.reject({ error });
+  }
+}
+
+export const getVersions = () => dispatch => {
+  try {
+    dispatch({ type: GET_VERSIONS_REQUEST });
+    // const resp = await axios.get(`${API_PATH}/workspace`, headers());
+  } catch (error) {
+    console.log('showVersions', error)
+  }
+}
+
+export const hideVersions = () => dispatch => {
+  try {
+  } catch (error) {
+    console.log('hideVersions', error)
   }
 }

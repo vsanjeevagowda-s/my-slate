@@ -7,7 +7,8 @@ import {
   Spinner
 } from 'reactstrap';
 import * as workspaceActions from '../../actions/workspace.actions';
-import initialValue from '../../reducers/value.json'
+import initialValue from '../../reducers/value.json';
+import VersionList from '../VersionList';
 
 
 class WorkspaceWrapper extends Component {
@@ -19,13 +20,19 @@ class WorkspaceWrapper extends Component {
   }
 
   componentDidMount() {
-    const { date, getWorkspaceRecordByDate } = this.props;
+    const {
+      workspace: {
+        date
+      },
+      getWorkspaceRecordByDate
+    } = this.props;
     getWorkspaceRecordByDate({ date });
   }
 
   onDateChange = ({ date }) => {
     const {
-      getWorkspaceRecordByDate, workspaceContentChange
+      workspaceContentChange,
+      getWorkspaceRecordByDate
     } = this.props;
     workspaceContentChange({
       date,
@@ -35,7 +42,13 @@ class WorkspaceWrapper extends Component {
   }
 
   onEditorChange({ value }) {
-    const { date, workspaceContentChange, syncWorkspaceContent } = this.props;
+    const {
+      workspace: {
+        date
+      },
+      workspaceContentChange,
+      syncWorkspaceContent
+    } = this.props;
     workspaceContentChange({
       value,
       date,
@@ -48,12 +61,25 @@ class WorkspaceWrapper extends Component {
   }
 
   render() {
-    const { date, value, isReadonly, workspaceDisplayFlag, apiCallStatus } = this.props;
+    const {
+      workspace: {
+        date,
+        value,
+        isReadonly,
+        workspaceDisplayFlag,
+        workspaceRequestStatus,
+        getVersions,
+        versionListModelFlag,
+        versions,
+        versionRequestStatus
+      }
+    } = this.props;
     return (
       <div>
         {workspaceDisplayFlag && <EditorWrapper
+          getVersions={getVersions}
           isReadonly={isReadonly}
-          workspaceApiCallStatus={apiCallStatus}
+          workspaceApiCallStatus={workspaceRequestStatus}
           type='workspace'
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}
@@ -61,15 +87,17 @@ class WorkspaceWrapper extends Component {
           editorHeightClass='workspace-editor-height'
           value={value} />}
         {!workspaceDisplayFlag && <div><Spinner style={{ width: '1rem', height: '1rem' }} type="grow" /></div>}
+        {versionListModelFlag && <VersionList versions={versions}
+          versionRequestStatus={versionRequestStatus} />}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  const { date, value, isReadonly, workspaceDisplayFlag, apiCallStatus } = state.workspace;
-  return { date, value, isReadonly, workspaceDisplayFlag, apiCallStatus };
-};
+  const { workspace } = state;
+  return { workspace };
+}
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({ ...workspaceActions }, dispatch)

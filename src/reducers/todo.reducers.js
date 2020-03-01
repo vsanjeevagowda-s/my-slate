@@ -26,17 +26,17 @@ const todo = (state = initialState, action) => {
     case TODO_LIST_API_CALL:
       return {
         ...state,
-        apiCallStatus: API_PENDING
+        workspaceRequestStatus: API_PENDING
       }
     case TODO_LIST_SUCCESS:
       return {
         ...state,
-        apiCallStatus: API_SUCCESS
+        workspaceRequestStatus: API_SUCCESS
       }
     case TODO_LIST_FAILURE:
       return {
         ...state,
-        apiCallStatus: API_FAILURE
+        workspaceRequestStatus: API_FAILURE
       }
     case TODO_CONTENT_CHANGE:
       const presentDate = moment(new Date()).format("YYYY-MM-DD")
@@ -53,24 +53,24 @@ const todo = (state = initialState, action) => {
         todoDisplayFlag: true,
         date: action.resp.todo.date,
         value: Value.fromJSON(JSON.parse(action.resp.todo.record)),
-        apiCallStatus: API_SUCCESS
+        workspaceRequestStatus: API_SUCCESS
       }
     case TODO_BY_DATE_FAILURE:
       return {
         ...state,
         value: Value.fromJSON(initialValue),
         todoDisplayFlag: true,
-        apiCallStatus: API_FAILURE
+        workspaceRequestStatus: API_FAILURE
       }
     case SYNC_TODO_FAILURE:
       return {
         ...state,
-        apiCallStatus: API_FAILURE
+        workspaceRequestStatus: API_FAILURE
       }
     case SYNC_TODO_SUCCESS:
       return {
         ...state,
-        apiCallStatus: API_SUCCESS
+        workspaceRequestStatus: API_SUCCESS
       }
     default:
       return state;

@@ -6,7 +6,8 @@ import {
   WORKSPACE_CONTENT_CHANGE,
   WORKSPACE_BY_DATE_SUCCESS,
   WORKSPACE_BY_DATE_FAILURE,
-  WORKSPACE_LIST_API_CALL
+  WORKSPACE_LIST_REQUEST,
+  GET_VERSIONS_REQUEST,
 } from '../actions/workspace.actions';
 import { API_SUCCESS, API_FAILURE, API_PENDING } from '../actions/constants';
 import moment from 'moment';
@@ -17,25 +18,29 @@ const initialState = {
   value: Value.fromJSON(initialValue),
   date: moment(new Date()).format("YYYY-MM-DD"),
   workspaceDisplayFlag: false,
-  apiCall: API_SUCCESS
+  apiCall: API_SUCCESS,
+  versions: [],
+  versionListModelFlag: false,
+  versionRequestStatus: API_SUCCESS
 };
 
 const workspace = (state = initialState, action) => {
   switch (action.type) {
-    case WORKSPACE_LIST_API_CALL:
+    case WORKSPACE_LIST_REQUEST:
       return {
         ...state,
-        apiCallStatus: API_PENDING
+        workspaceRequestStatus: API_PENDING
       }
     case WORKSPACE_LIST_SUCCESS:
       return {
         ...state,
-        apiCallStatus: API_SUCCESS
+        versions: action.resp.data.workspace.versions,
+        workspaceRequestStatus: API_SUCCESS
       }
     case WORKSPACE_LIST_FAILURE:
       return {
         ...state,
-        apiCallStatus: API_FAILURE
+        workspaceRequestStatus: API_FAILURE
       }
     case WORKSPACE_CONTENT_CHANGE:
       const presentDate = moment(new Date()).format("YYYY-MM-DD")
@@ -52,14 +57,20 @@ const workspace = (state = initialState, action) => {
         workspaceDisplayFlag: true,
         date: action.resp.workspace.date,
         value: Value.fromJSON(JSON.parse(action.resp.workspace.record)),
-        apiCallStatus: API_SUCCESS
+        workspaceRequestStatus: API_SUCCESS
       }
     case WORKSPACE_BY_DATE_FAILURE:
       return {
         ...state,
         value: Value.fromJSON(initialValue),
         workspaceDisplayFlag: true,
-        apiCallStatus: API_FAILURE
+        workspaceRequestStatus: API_FAILURE
+      }
+    case GET_VERSIONS_REQUEST:
+      return {
+        ...state,
+        versionListModelFlag: true,
+        versionRequestStatus: API_PENDING
       }
     default:
       return state;

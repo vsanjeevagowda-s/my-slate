@@ -43,12 +43,12 @@ class ToDoWrapper extends Component {
   }
 
   render() {
-    const { date, value, isReadonly, todoDisplayFlag, apiCallStatus } = this.props;
+    const { date, value, isReadonly, todoDisplayFlag, workspaceRequestStatus } = this.props;
     return (
       <div>
         {todoDisplayFlag && <EditorWrapper
           isReadonly={isReadonly}
-          toDoApiCallStatus={apiCallStatus}
+          toDoApiCallStatus={workspaceRequestStatus}
           type='todo'
           onEditorChange={this.onEditorChange}
           onDateChange={this.onDateChange}
@@ -61,8 +61,8 @@ class ToDoWrapper extends Component {
 }
 
 const mapStateToProps = state => {
-  const { date, value, isReadonly, todoDisplayFlag, apiCallStatus } = state.todo;
-  return { date, value, isReadonly, todoDisplayFlag, apiCallStatus };
+  const { date, value, isReadonly, todoDisplayFlag, workspaceRequestStatus } = state.todo;
+  return { date, value, isReadonly, todoDisplayFlag, workspaceRequestStatus };
 };
 
 const mapDispatchToProps = dispatch => {

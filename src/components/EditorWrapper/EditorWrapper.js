@@ -207,7 +207,8 @@ class EditorWrapper extends Component {
       date,
       workspaceApiCallStatus,
       toDoApiCallStatus,
-      isReadonly
+      isReadonly,
+      getVersions
     } = this.props;
     return (
       <Row className='border-bottom pb-2'>
@@ -222,12 +223,13 @@ class EditorWrapper extends Component {
         </Col>
         {(type === 'workspace') && <Col xs={12} sm={4} md={4}>
           <Row>
-            <Col className='py-2 px-1 text-right'>
+            <Col sm={3} xs={3} md={3} className='py-2 px-1 text-right'>
               {(workspaceApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
               {(workspaceApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
               {(workspaceApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
-              {isReadonly && <i class="fa fa-lock px-1" />}
-              {!isReadonly &&  <i class="fa fa-unlock-alt px-1" />}
+              <i className="fa fa-history text-primary px-1 cursor-pointer" onClick={() => {  getVersions({ type }) }} />
+              {isReadonly && <i className="fa fa-lock px-1" />}
+              {!isReadonly &&  <i className="fa fa-unlock-alt px-1" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
@@ -238,13 +240,14 @@ class EditorWrapper extends Component {
           </Row>
         </Col>}
         {(type === 'todo') && <Col xs={12} sm={12} md={12}>
-          <Row>
+          <Row className='py-1'>
             <Col className='py-2 px-1 text-right'>
               {(toDoApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
               {(toDoApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
               {(toDoApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
+              <i className="fa fa-history text-primary px-1 cursor-pointer" onClick={() => { console.log('===>', type) }}/>
               {isReadonly && <i class="fa fa-lock px-1" />}
-              {!isReadonly &&  <i class="fa fa-unlock-alt px-1" />}
+              {!isReadonly &&  <i className="fa fa-unlock-alt px-1" />}
             </Col>
             <Col className='py-2 px-1 text-right' sm={1} xs={1} md={1}>
               <i className="fa fa-calendar  cursor-pointer" onClick={() => this.onDateChange({ date: moment(new Date()).format("YYYY-MM-DD") })} />
