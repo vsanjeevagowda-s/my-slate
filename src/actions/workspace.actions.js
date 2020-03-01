@@ -105,7 +105,7 @@ const getVersionFailure = error => {
 export const getVersions = ({ date }) => async dispatch => {
   try {
     dispatch({ type: GET_VERSIONS_REQUEST });
-    const resp = await axios.get(`${API_PATH}/workspace/${date}/versions`, headers());
+    const resp = await axios.get(`${API_PATH}/workspace/${date}/versions?limit=30&page=1`, headers());
     dispatch(getVersionSuccess(resp))
   } catch (error) {
     console.log('showVersions', error)
