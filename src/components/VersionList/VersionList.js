@@ -9,21 +9,24 @@ class VersionList extends Component {
     const {
       versions,
       versionRequestStatus,
-      hideVersionListModelFn
+      hideVersionListModelFn,
+      totalVersionCount
     } = this.props;
     return (
       <Modal isOpen toggle={() => hideVersionListModelFn()} className="modal-lg">
-        <ModalHeader toggle={() => hideVersionListModelFn()}>Versions ({versions.length})</ModalHeader>
+        <ModalHeader toggle={() => hideVersionListModelFn()}>Versions ({totalVersionCount})</ModalHeader>
         <ModalBody>
-          {(versionRequestStatus === API_PENDING) && <div>Pending....</div>}
-          {(versionRequestStatus === API_SUCCESS) && <div>
-            {versions.map(item => {
-              return <Verison
-                key={item.version}
-                item={item} />
-            })}
-          </div>}
-          {(versionRequestStatus === API_FAILURE) && <div>Failure</div>}
+          <div className='version-list'>
+            {(versionRequestStatus === API_PENDING) && <center>Loading....</center>}
+            {(versionRequestStatus === API_SUCCESS) && <div>
+              {versions.map(item => {
+                return <Verison
+                  key={item.version}
+                  item={item} />
+              })}
+            </div>}
+            {(versionRequestStatus === API_FAILURE) && <center>Failure</center>}
+          </div>
         </ModalBody>
       </Modal>
     );

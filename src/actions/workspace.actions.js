@@ -12,6 +12,8 @@ export const WORKSPACE_LIST_REQUEST = 'WORKSPACE_LIST_REQUEST';
 export const GET_VERSIONS_REQUEST = 'GET_VERSIONS_REQUEST';
 export const GET_VERSIONS_REQUEST_SUCCESS = 'GET_VERSIONS_REQUEST_SUCCESS';
 export const HIDE_VERSION_LIST_MODAL = 'HIDE_VERSION_LIST_MODAL';
+export const GET_VERSIONS_SUCCESS = 'GET_VERSIONS_SUCCESS';
+export const GET_VERSIONS_FAILURE = 'GET_VERSIONS_FAILURE';
 
 const workspaceListSuccess = (resp) => {
   return {
@@ -87,12 +89,28 @@ export const getWorkspaceRecordByDate = ({ date }) => async dispatch => {
   }
 }
 
-export const getVersions = () => dispatch => {
+const getVersionSuccess = resp => {
+  return {
+    type: GET_VERSIONS_SUCCESS,
+    resp
+  }
+}
+
+const getVersionFailure = error => {
+  return {
+    type: GET_VERSIONS_FAILURE,
+    error
+  }
+}
+
+export const getVersions = ({ date }) => async dispatch => {
   try {
     dispatch({ type: GET_VERSIONS_REQUEST });
-    // const resp = await axios.get(`${API_PATH}/workspace`, headers());
+    const resp = await axios.get(`${API_PATH}/workspace/${date}/versions`, headers());
+    dispatch(getVersionSuccess(resp))
   } catch (error) {
     console.log('showVersions', error)
+    dispatch(getVersionFailure(error))
   }
 }
 

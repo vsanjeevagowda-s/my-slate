@@ -70,7 +70,8 @@ class WorkspaceWrapper extends Component {
         workspaceRequestStatus,
         versionListModelFlag,
         versions,
-        versionRequestStatus
+        versionRequestStatus,
+        totalVersionCount
       },
       getVersions,
       hideVersionListModelFn
@@ -90,7 +91,8 @@ class WorkspaceWrapper extends Component {
         {!workspaceDisplayFlag && <div><Spinner style={{ width: '1rem', height: '1rem' }} type="grow" /></div>}
         {versionListModelFlag && <VersionList versions={versions}
           versionRequestStatus={versionRequestStatus}
-          hideVersionListModelFn={hideVersionListModelFn} />}
+          hideVersionListModelFn={hideVersionListModelFn}
+          totalVersionCount={totalVersionCount} />}
       </div>
     )
   }

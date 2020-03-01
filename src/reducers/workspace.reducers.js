@@ -9,6 +9,8 @@ import {
   WORKSPACE_LIST_REQUEST,
   GET_VERSIONS_REQUEST,
   HIDE_VERSION_LIST_MODAL,
+  GET_VERSIONS_SUCCESS,
+  GET_VERSIONS_FAILURE
 } from '../actions/workspace.actions';
 import { API_SUCCESS, API_FAILURE, API_PENDING } from '../actions/constants';
 import moment from 'moment';
@@ -21,6 +23,7 @@ const initialState = {
   workspaceDisplayFlag: false,
   apiCall: API_SUCCESS,
   versions: [],
+  totalVersionCount: 0,
   versionListModelFlag: false,
   versionRequestStatus: API_SUCCESS
 };
@@ -35,7 +38,6 @@ const workspace = (state = initialState, action) => {
     case WORKSPACE_LIST_SUCCESS:
       return {
         ...state,
-        versions: action.resp.data.workspace.versions,
         workspaceRequestStatus: API_SUCCESS
       }
     case WORKSPACE_LIST_FAILURE:
@@ -77,6 +79,19 @@ const workspace = (state = initialState, action) => {
       return {
         ...state,
         versionListModelFlag: false,
+      }
+    case GET_VERSIONS_SUCCESS:
+      return {
+        ...state,
+        versions: action.resp.data.versions,
+        totalVersionCount: action.resp.data.totalRecords,
+        versionRequestStatus: API_SUCCESS
+      }
+    case GET_VERSIONS_FAILURE:
+      return {
+        ...state,
+        versions: [],
+        versionRequestStatus: API_FAILURE
       }
     default:
       return state;

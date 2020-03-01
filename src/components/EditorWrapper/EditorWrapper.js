@@ -227,7 +227,7 @@ class EditorWrapper extends Component {
               {(workspaceApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
               {(workspaceApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
               {(workspaceApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
-              <i className="fa fa-history text-primary px-1 cursor-pointer" onClick={() => {  getVersions({ type }) }} />
+              <i className="fa fa-history text-primary px-1 cursor-pointer" onClick={() => {  getVersions({ date }) }} />
               {isReadonly && <i className="fa fa-lock px-1" />}
               {!isReadonly &&  <i className="fa fa-unlock-alt px-1" />}
             </Col>
@@ -274,7 +274,7 @@ class EditorWrapper extends Component {
     return (
       <Row className='p-2'>
         <Col xs={12} sm={12} md={12}>
-          {this.toolbar()}
+          {(type !== 'version') && this.toolbar()}
         </Col>
         <Col style={{ fontSize: '14px' }} className={`${editorHeightClass} overflow-scroll`}>
           <Row>
