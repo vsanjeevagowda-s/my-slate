@@ -245,7 +245,7 @@ class EditorWrapper extends Component {
               {(toDoApiCallStatus === API_FAILURE) && <i className="fa fa-times-circle text-danger" />}
               {(toDoApiCallStatus === API_SUCCESS) && <i className="fa fa-check-circle text-success" />}
               {(toDoApiCallStatus === API_PENDING) && <Spinner type="border" size="sm" />}
-              <i className="fa fa-history text-primary px-1 cursor-pointer" onClick={() => { console.log('===>', type) }}/>
+              <i className="fa fa-history text-primary px-1 cursor-pointer" onClick={() => {  getVersions({ date }) }}/>
               {isReadonly && <i class="fa fa-lock px-1" />}
               {!isReadonly &&  <i className="fa fa-unlock-alt px-1" />}
             </Col>

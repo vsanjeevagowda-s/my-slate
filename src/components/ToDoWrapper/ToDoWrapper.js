@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Value } from 'slate';
 import * as todoActions from '../../actions/todo.actions';
 import initialValue from '../../reducers/value.json'
+import VersionList from '../VersionList';
 
 class ToDoWrapper extends Component {
 
@@ -64,12 +65,19 @@ class ToDoWrapper extends Component {
         value,
         isReadonly,
         todoDisplayFlag,
-        workspaceRequestStatus
-      }
+        workspaceRequestStatus,
+        versionListModelFlag,
+        versions,
+        versionRequestStatus,
+        totalVersionCount
+      },
+      getVersions,
+      hideVersionListModelFn
     } = this.props;
     return (
       <div>
         {todoDisplayFlag && <EditorWrapper
+          getVersions={getVersions}
           isReadonly={isReadonly}
           toDoApiCallStatus={workspaceRequestStatus}
           type='todo'
@@ -78,6 +86,10 @@ class ToDoWrapper extends Component {
           date={date}
           editorHeightClass='todo-editor-height'
           value={value} />}
+        {versionListModelFlag && <VersionList versions={versions}
+          versionRequestStatus={versionRequestStatus}
+          hideVersionListModelFn={hideVersionListModelFn}
+          totalVersionCount={totalVersionCount} />}
       </div>
     )
   }
